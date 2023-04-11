@@ -14,7 +14,6 @@ class Solution {
         int i = 2; 
         
         while(i<=min){ // 반복문 시작
-            
             if(min%i==0 && max%i==0){ // 만약 n과 m 둘 다 i로 나누어지면 
                 min /= i;             // i로 나누고
                 max /= i;
@@ -24,7 +23,6 @@ class Solution {
                 if(i==min){break;}   // 만약 i가 작은 수까지 되면 멈추고
                 else i++;            // 아니면 i를 늘림
             } 
-            
         }
         
         int gcd = 1;
@@ -36,7 +34,6 @@ class Solution {
         int lcm = gcd*min*max;      // 거기에 min과 max를 곱하면 최소공배수
         
         int[] answer = {gcd, lcm};
-        
         
         return answer;
     }
@@ -57,5 +54,4 @@ class Solution {
         }
         return answer;
     }
-
 }
