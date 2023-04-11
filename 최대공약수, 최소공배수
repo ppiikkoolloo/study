@@ -6,8 +6,8 @@ import java.util.*;
 class Solution {
     public int[] solution(int n, int m) {
         
-        int min = Math.min(n,m); // n과 m 중 작은수
-        int max = Math.max(n,m); // 큰 수
+        int min = Math.min(n,m);       // n과 m 중 작은수
+        int max = Math.max(n,m);       // 큰 수
         
         Stack<Integer>stk = new Stack<>();
         
@@ -40,4 +40,22 @@ class Solution {
         
         return answer;
     }
+}
+
+
+
+/// 정말 간결한 공식
+
+class Solution {
+    public int[] solution(int n, int m) {
+        int[] answer = new int[2];
+        for (int i = 1; i < n + m; i++) {
+            if (n % i == 0 && m % i == 0) {    
+                answer[0] = i;                      /// 최대공약수는 n과 m의 공약수 중 제일 큰 수만 찾으면 되는 것이고
+                answer[1] = n * m / answer[0];      /// 최소공배수는 두 수를 곱한 뒤 최대공약수로 나누면  
+            }
+        }
+        return answer;
+    }
+
 }
