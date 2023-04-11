@@ -1,0 +1,4 @@
+//반복문으로 만드는 공식
+
+int a, b; // a<=b 라고 했을 때
+for(int i=0; i< Math.min(a,b)
