@@ -1,4 +1,43 @@
-//반복문으로 만드는 공식
+// 프로그래머스 최대공약수와 최소공배수 문제
 
-int a, b; // a<=b 라고 했을 때
-for(int i=0; i< Math.min(a,b)
+// 반복문으로 최대공약수, 최소공배수 찾기
+
+import java.util.*;
+class Solution {
+    public int[] solution(int n, int m) {
+        
+        int min = Math.min(n,m); // n과 m 중 작은수
+        int max = Math.max(n,m); // 큰 수
+        
+        Stack<Integer>stk = new Stack<>();
+        
+        int i = 2; 
+        
+        while(i<=min){ // 반복문 시작
+            
+            if(min%i==0 && max%i==0){ // 만약 n과 m 둘 다 i로 나누어지면 
+                min /= i;             // i로 나누고
+                max /= i;
+                stk.push(i);          // i를 스택에 다 때려넣음
+            }
+            else{                    // 안 나누어지는데
+                if(i==min){break;}   // 만약 i가 작은 수까지 되면 멈추고
+                else i++;            // 아니면 i를 늘림
+            } 
+            
+        }
+        
+        int gcd = 1;
+        
+        while(!stk.isEmpty()){      // 스택에 있는 값들을 곱하면 최대공약수
+            gcd *=stk.pop();
+        }
+        
+        int lcm = gcd*min*max;      // 거기에 min과 max를 곱하면 최소공배수
+        
+        int[] answer = {gcd, lcm};
+        
+        
+        return answer;
+    }
+}
