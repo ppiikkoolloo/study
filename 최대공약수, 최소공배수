@@ -65,7 +65,7 @@ class Solution {
         int a = Math.max(n,m);
         int b = Math.min(n,m);
         int c = a%b;
-        
+   
         while(c>0){
             a = b;
             b = c;
