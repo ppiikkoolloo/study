@@ -55,3 +55,25 @@ class Solution {
         return answer;
     }
 }
+
+
+// 유클리드 호제법
+
+class Solution {
+    public int[] solution(int n, int m) {
+        
+        int a = Math.max(n,m);
+        int b = Math.min(n,m);
+        int c = a%b;
+        
+        while(c>0){
+            a = b;
+            b = c;
+            c = a%b;
+        }
+        int gcd = b;
+        
+        int[] answer = {b, n*m/b};
+        return answer;
+    }
+}
