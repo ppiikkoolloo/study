@@ -1,0 +1,84 @@
+//(A * B) mod C = (A mod C * B mod C) mod C임을 증명
+//LHS = RHS
+
+A = C * Q1 + R1  // A mod C = R1
+B = C * Q2 + R2  // B mod C = R2
+LHS = (A * B) mod C
+LHS = ((C * Q1 + R1 ) * (C * Q2 + R2) ) mod C
+LHS = (C * C * Q1 * Q2 + C * Q1 * R2 + C * Q2 * R1 + R1 * R 2 )  mod C
+LHS = (C * (C * Q1 * Q2 + Q1 * R2 + Q2 * R1)  + R1 * R 2 )  mod C
+mod C로 C의 배수 제거
+LHS = (R1 * R2) mod C
+
+RHS = (A mod C * B mod C) mod C
+RHS = (R1 * R2 ) mod C
+
+LHS = RHS = (R1 * R2 ) mod C
+
+
+// 이걸 코드로 하면
+(A * B) % C = (A % C * B % C) % C
+
+그래서 A의 B제곱을 C로 나눈 나머지를 구하기의 코드를 
+LHS 식으로 짜면
+
+function(int A, int B, int C){
+  int x = 1
+  while(B>0){
+    x = x * A
+    B--
+  }
+  return x % C
+}
+
+RHS 식으로 짜면
+
+function(int A, int B, int C){
+  int x = 1
+  while(B>0){
+    x = x * A % C
+    B--
+  }
+  return x
+} 
+
+가 된다.
+
+
+/// 위에서 짠 코드의 방식으로 백준 1629번 곱셈 문제를 풀어보았다.
+
+문제
+자연수 A를 B번 곱한 수를 알고 싶다. 단 구하려는 수가 매우 커질 수 있으므로 이를 C로 나눈 나머지를 구하는 프로그램을 작성하시오.
+
+import java.io.*;
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) throws Exception{
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    
+	    StringTokenizer st  = new StringTokenizer(br.readLine());
+	    
+	    long A = Long.parseLong(st.nextToken());
+	    int B = Integer.parseInt(st.nextToken());
+	    long C = Long.parseLong(st.nextToken());
+		
+		System.out.println(abc(A,B,C));
+	}
+	
+	public static long abc(long a, int b, long c){
+	    long x = 1;
+	    while(b>0){
+	        x = x * a % c;
+	        b--;
+	    }
+	    return x;
+	}
+}
+
+/// 시간 초과가 나왔다
+이건 다른 방식으로 접근해야
+
+  
+   
