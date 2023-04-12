@@ -8,12 +8,12 @@ LHS = ((C * Q1 + R1 ) * (C * Q2 + R2) ) mod C
 LHS = (C * C * Q1 * Q2 + C * Q1 * R2 + C * Q2 * R1 + R1 * R 2 )  mod C
 LHS = (C * (C * Q1 * Q2 + Q1 * R2 + Q2 * R1)  + R1 * R 2 )  mod C
 mod C로 C의 배수 제거
-LHS = (R1 * R2) mod C
+LHS = (R1 * R2) mod C          
 
 RHS = (A mod C * B mod C) mod C
 RHS = (R1 * R2 ) mod C
 
-LHS = RHS = (R1 * R2 ) mod C
+LHS = RHS = (R1 * R2 ) mod C  
 
 
 // 이걸 코드로 하면
@@ -39,7 +39,7 @@ function(int A, int B, int C){
     x = x * A % C
     B--
   }
-  return x
+  return x % C
 } 
 
 가 된다.
@@ -50,35 +50,93 @@ function(int A, int B, int C){
 문제
 자연수 A를 B번 곱한 수를 알고 싶다. 단 구하려는 수가 매우 커질 수 있으므로 이를 C로 나눈 나머지를 구하는 프로그램을 작성하시오.
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 public class Main
 {
 	public static void main(String[] args) throws Exception{
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    
+	    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	    StringTokenizer st  = new StringTokenizer(br.readLine());
 	    
 	    long A = Long.parseLong(st.nextToken());
 	    int B = Integer.parseInt(st.nextToken());
 	    long C = Long.parseLong(st.nextToken());
 		
-		System.out.println(abc(A,B,C));
+	    bw.write(abc(A,B,C) + "\n");
+	    bw.flush();
 	}
 	
 	public static long abc(long a, int b, long c){
+	    if(b==1) return a%c;
 	    long x = 1;
 	    while(b>0){
 	        x = x * a % c;
 	        b--;
 	    }
-	    return x;
+	    return x % c ;
 	}
 }
 
-/// 시간 초과가 나왔다
-이건 다른 방식으로 접근해야
 
+이렇게 하면 시간 초과가 나온다
+이건 다른 방식으로 접근해야한다
+
+a^n = a^(n/2) * a^(n/2)
+a^b % c = a^(b/2) % c * a^(b/2) % c
+
+이런 식으로 재귀 함수를 만들어야 한다.
+
+fuction(a, b, c){
+	if(b==1) return a % c
+	function(a, b/2, c) * function(a, b/2, c)
+
+
+코드를 만들면
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Main
+{
+	public static void main(String[] args) throws Exception{
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+	    StringTokenizer st  = new StringTokenizer(br.readLine());
+	    
+	    long A = Long.parseLong(st.nextToken());
+	    long B = Long.parseLong(st.nextToken());
+	    long C = Long.parseLong(st.nextToken());
+		
+		bw.write(abc(A,B,C) + "\n");
+	    bw.flush();
+	}
+	
+	public static long abc(long a, long b, long c){
+	    if(b==1) return a % c;
+	    long x = abc(a, b/2, c);
+	    if(b%2==0) return (x * x) % c;
+	    else return (x * x % c) * a % c;
+	    
+	}
+}
+
+이렇게 하면 맞았다고 나온다.
+근데 이 코드를 만들기까지 많이 틀렸다.
+
+원래 내 코드 else return (x * x * a % c) % c;
+맞은 코드    else return (x * x % c) * a % c;
+ 
+ 이 부분의 곱셈 과정에서 long형의 범위를 넘었다는데
+ 이런 부분도 주의해야 한다...
   
    
