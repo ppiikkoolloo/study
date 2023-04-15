@@ -84,3 +84,53 @@ public class Main {
         System.out.println(sb);
     }
 }
+
+
+
+///////////////////////////
+처음엔 for문으로 풀다가 계속 틀려서 알고리즘이 틀렸나 해서 while로 갈아탔는데
+여기도 intValue() 붙이니까 해결됐다
+////////////////////////////
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int n = Integer.parseInt(br.readLine());
+        
+        ArrayList<Integer> list = new ArrayList <> ();
+        Stack<Integer> stk = new Stack<>();
+        
+        for(int i=1; i<=n; i++){
+            list.add(Integer.parseInt(br.readLine()));
+        }
+        
+        StringBuffer sb = new StringBuffer();
+        
+        loop:
+        for(int i=1; i<=n; i++){
+            stk.push(i);
+            sb.append("+").append("\n");
+            while(!stk.isEmpty() && stk.peek().intValue() == list.get(0).intValue()) {
+                list.remove(0);
+                stk.pop();
+                sb.append("-").append("\n");
+                if(list.isEmpty() && i==n) break loop;
+            }
+            if(i==n && list.size() == stk.size() && list.get(0).intValue()!=stk.peek().intValue()){
+                System.out.println("NO");
+                return;
+            } 
+        }
+        System.out.println(sb.toString() + "\n");
+    }
+}
+
+
+
