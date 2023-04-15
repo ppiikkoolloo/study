@@ -1,0 +1,20 @@
+end of file( 백준 10851, 11718)
+
+1. Scanner 사용
+
+Scanner sc = new Scanner(System.in)
+while(sc.hasNext()) {
+  ~~~~~~
+  }
+  
+
+2. BufferedReader 사용
+
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+String input = "";
+
+while((input = br.readLine()) != null) {
+ ~~~~~~
+}
+
+
