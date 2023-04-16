@@ -1,4 +1,4 @@
-end of file( 백준 10851, 11718)
+end of file( 백준 10951, 11718)
 
 1. Scanner 사용
 
@@ -18,3 +18,13 @@ while((input = br.readLine()) != null) {
 }
 
 
+3. 버퍼 + 토큰
+
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+String k;
+while((k=br.readLine()) != null ){
+    StringTokenizer x = new StringTokenizer(k);
+    int A = Integer.parseInt(x.nextToken());
+    int B = Integer.parseInt(x.nextToken());
+}        
+            
