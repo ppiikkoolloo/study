@@ -1,0 +1,71 @@
+체스판 다시 칠하기 문제
+
+원래 이렇게 코드가 긴가?
+나만 이런가 싶어 다른 사람들 것을 보니까 다들 비슷하더라
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Main {
+    
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        //브루트포스//
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        
+        Character [][] pan1b = new Character[N+1][M+1];
+        Character [][] pan2w = new Character[N+1][M+1];
+        Character [][] input = new Character[N+1][M+1];
+        
+        for(int i=0; i< N; i++){
+            String a = br.readLine();
+            for(int j=0; j< M; j++){
+                input[i+1][j+1] = a.charAt(j);
+            }
+        }
+        
+        for(int i=1; i<=8; i++){
+            for(int j=1; j<=8; j++){
+                if( (i%2==0 && j%2==0) || (i%2==1 && j%2==1) ){
+                    pan1b[i][j] = 'B';
+                    pan2w[i][j] = 'W';
+                } 
+                else if( (i%2==1 && j%2==0) || (i%2==0 && j%2==1) ){
+                    pan1b[i][j] = 'W';
+                    pan2w[i][j] = 'B';
+                } 
+            }
+        }
+        
+        int min = 64;
+       
+        for(int a=1; a<=N-7; a++){
+            for(int b=1; b<=M-7; b++){
+                int countb = 0;
+                int countw = 0;
+                for(int i=a; i<=a+7; i++){
+                    for(int j=b; j<=b+7; j++){
+                        if(input[i][j] != pan1b[i-a+1][j-b+1]) countb ++;
+                        if(input[i][j] != pan2w[i-a+1][j-b+1]) countw ++;
+                    }
+                }
+                int minbw = Math.min(countb, countw);
+                if(minbw < min) min = minbw;
+                ;
+            }
+        }
+        
+        bw.write(min + "\n");
+        bw.flush();
+        bw.close();
+        br.close();
+	}
+}
