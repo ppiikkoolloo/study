@@ -1,0 +1,48 @@
+10진수에서 N진법 변환
+(메서드 사용)
+Integer.toBinaryString(number); // 2진법 변환
+Integer.toOctalString(number);  // 8진법 변환
+Integer.toHexString(number);    // 16진법 변환
+Integer.toString(num, 2); //2진수
+Integer.toString(num, 3); //3진수
+Integer.toString(num, 8); //8진수
+Integer.toString(num, 16); //16진수
+
+public static void conversion(int number, int N){
+   StringBuilder sb = new StringBuilder();
+	 int current = number;
+   while(current > 0){
+      if(current % N < 10){
+        sb.append(current % N);          
+      } 
+      else {
+        sb.append((char)(current % N - 10 + 'A'));
+      }
+      current /= N;
+  }
+  sb.reverse();
+}
+
+
+
+N진수에서 10진수 변환
+(메서드 사용 
+Integer.parseInt("number", n진수) )
+
+public static void converse_ten(String number, int N){
+        char[] nums = number.toCharArray();
+        int ans = 0;
+        
+        for(int i=0; i < nums.length; i++){
+            if(nums[i] >= 'A'){
+                ans = ans * N + (nums[i] - 'A' + 10);    
+            } else {
+                ans = ans * N + (nums[i] - '0');
+            }
+        }
+        System.out.println(ans);
+    }
+}
+
+       
+       
